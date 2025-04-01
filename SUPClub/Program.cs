@@ -24,7 +24,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.Name = "SUPClub";
     options.Cookie.HttpOnly = true;
-    options.LoginPath = "account/login";
+   // options.LoginPath = "account/login";
     options.AccessDeniedPath = "/admin/accessdenied";
     options.SlidingExpiration = true;
 });
