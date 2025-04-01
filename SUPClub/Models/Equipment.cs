@@ -56,23 +56,23 @@ namespace SUPClub.Models
         {
             if (string.IsNullOrWhiteSpace(name) || name.Length > MAX_LENGHT_NAME)
             {
-                throw new ArgumentNullException(nameof(name));
+                throw new ArgumentException (nameof(name));
             }
             if (descriptionShort != null && descriptionShort.Length > MAX_LENGHT_DESCRIPTION_SHORT)
             {
-                throw new ArgumentNullException(nameof(descriptionShort));
+                throw new ArgumentException(nameof(descriptionShort));
             }
             if (description != null && description.Length > MAX_LENGHT_DESCRIPTION)
             {
-                throw new ArgumentNullException(nameof(description));
+                throw new ArgumentException(nameof(description));
             }
             if (photo != null && photo.Length > MAX_LENGHT_PHOTO_URL)
             {
-                throw new ArgumentNullException(nameof(photo));
+                throw new ArgumentException(nameof(photo));
             }
             if (string.IsNullOrWhiteSpace(createById) || createById.Length > MAX_LENGHT_CREATE_BY_ID)
             {
-                throw new ArgumentNullException(nameof(createById));
+                throw new ArgumentException(nameof(createById));
             }
             return new Equipment(name.Trim(), descriptionShort,description,photo,quantity,
                 price,hireSubCategoryId, hireCategoryId, isActive, createById);

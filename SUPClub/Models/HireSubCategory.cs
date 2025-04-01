@@ -37,11 +37,11 @@
         {
             if (string.IsNullOrWhiteSpace(name) || name.Length > MAX_LENGHT_NAME)
             {
-                throw new ArgumentNullException(nameof(name));
+                throw new ArgumentException(nameof(name));
             }
             if (string.IsNullOrWhiteSpace(createById) || createById.Length > MAX_LENGHT_CREATE_BY_ID)
             {
-                throw new ArgumentNullException(nameof(createById));
+                throw new ArgumentException(nameof(createById));
             }
 
             return new HireSubCategory(name.Trim(), hireCategoryId, isActive, createById);

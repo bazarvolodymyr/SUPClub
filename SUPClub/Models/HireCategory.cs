@@ -44,15 +44,15 @@
         {
             if (string.IsNullOrWhiteSpace(name) || name.Length > MAX_LENGHT_NAME)
             {
-                throw new ArgumentNullException(nameof(name));
+                throw new ArgumentException(nameof(name));
             }
             if (imageUrl !=null && imageUrl.Length > MAX_LENGHT_IMAGE_URL)
             {
-                throw new ArgumentNullException(nameof(imageUrl));
+                throw new ArgumentException(nameof(imageUrl));
             }
             if (string.IsNullOrWhiteSpace(createById) || createById.Length > MAX_LENGHT_CREATE_BY_ID)
             {
-                throw new ArgumentNullException(nameof(createById));
+                throw new ArgumentException(nameof(createById));
             }
             return new HireCategory(name.Trim(), imageUrl, isActive, createById);
 
