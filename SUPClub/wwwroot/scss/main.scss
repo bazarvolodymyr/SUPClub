@@ -84,12 +84,12 @@
 		padding: 0;
 	}
 
-	input, select, textarea {
+	/*input, select, textarea {
 		-moz-appearance: none;
 		-webkit-appearance: none;
 		-ms-appearance: none;
 		appearance: none;
-	}
+	}*/
 
 /* Basic */
 
@@ -323,65 +323,65 @@
 
 /* Forms */
 
-	form {
-		label {
-			display: block;
-			text-transform: uppercase;
-			font-weight: 800;
-			letter-spacing: 0.04em;
-			color: #404248;
-			margin: 0 0 1em 0;
-			font-size: 0.8em;
-		}
-
-		input[type="text"],
-		input[type="email"],
-		input[type="password"],
-		select,
-		textarea {
-			-webkit-appearance: none;
-			display: block;
-			width: 100%;
-			border-radius: 8px;
-			border: solid 1px #eee;
-		}
-
-		input[type="text"]:focus,
-		input[type="email"]:focus,
-		input[type="password"]:focus,
-		select:focus,
-		textarea:focus {
-			box-shadow: 0 0 2px 1px #4091bf;
-		}
-
-		input[type="text"],
-		input[type="email"],
-		input[type="password"] {
-			line-height: 3em;
-			padding: 0 1em;
-		}
-
-		select {
-			line-height: 3em;
-			padding: 0 1em;
-		}
-
-		textarea {
-			min-height: 9em;
-			padding: 1em;
-		}
-
-		::-webkit-input-placeholder,
-		:-moz-placeholder,
-		::-moz-placeholder,
-		:-ms-input-placeholder {
-			color: #555 !important;
-		}
-
-		::-moz-focus-inner {
-			border: 0;
-		}
+form {
+	label {
+		display: block;
+		text-transform: uppercase;
+		font-weight: 800;
+		letter-spacing: 0.04em;
+		color: #404248;
+		margin: 0 0 1em 0;
+		font-size: 0.8em;
 	}
+
+	input[type="text"],
+	input[type="email"],
+	input[type="password"],
+	select,
+	textarea {
+		-webkit-appearance: none;
+		display: block;
+		width: 100%;
+		border-radius: 8px;
+		border: solid 1px #eee;
+	}
+
+	input[type="text"]:focus,
+	input[type="email"]:focus,
+	input[type="password"]:focus,
+	select:focus,
+	textarea:focus {
+		box-shadow: 0 0 2px 1px #4091bf;
+	}
+
+	input[type="text"],
+	input[type="email"],
+	input[type="password"] {
+		line-height: 3em;
+		padding: 0 1em;
+	}
+
+	select {
+		line-height: 3em;
+		padding: 0 1em;
+	}
+
+	textarea {
+		min-height: 9em;
+		padding: 1em;
+	}
+
+	::-webkit-input-placeholder,
+	:-moz-placeholder,
+	::-moz-placeholder,
+	:-ms-input-placeholder {
+		color: #555 !important;
+	}
+
+	::-moz-focus-inner {
+		border: 0;
+	}
+}
 
 /* Tables */
 
@@ -1400,6 +1400,10 @@ button,
 			#copyright {
 				margin-top: 0;
 				padding: 3em 0 1em 0;
+			}
+
+			.div-box{
+				padding: 30px 0;
 			}
 
 	}
