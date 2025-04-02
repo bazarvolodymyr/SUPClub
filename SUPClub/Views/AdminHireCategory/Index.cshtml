@@ -1,0 +1,12 @@
+﻿@{
+    string? strTitle = "Керування категоріями";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <h1>@strTitle</h1>
+    <div class="div-box">
+        <form asp-area="" asp-controller="AdminHireCategory" asp-action="AddCategory" method="get">
+            <input type="submit" value="Додати категорію" />
+        </form>
+    </div>
+</div>

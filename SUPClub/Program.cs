@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using SUPClub.Data;
 using SUPClub.Data.Entities;
+using SUPClub.Data.Mappings;
+using SUPClub.Data.Repositories.Abstract;
+using SUPClub.Data.Repositories.EntityFramework;
+using SUPClub.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
@@ -28,6 +32,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/admin/accessdenied";
     options.SlidingExpiration = true;
 });
+
+builder.Services.AddAutoMapper(typeof(DataBaseMappings));
+builder.Services.AddScoped<IHireCategoryRepository, HireCategoryRepositoryEF>();
+builder.Services.AddScoped<ImageHandler>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
