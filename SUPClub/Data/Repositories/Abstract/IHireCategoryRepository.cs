@@ -6,7 +6,7 @@ namespace SUPClub.Data.Repositories.Abstract
     {
         Task<IEnumerable<HireCategory>> GetHireCategoriesAsync();
         Task<HireCategory?> GetHireCategoryByIdAsync(int id);
-        Task<HireCategory?> SaveHireCategoryAsync(HireCategory hireCategory);
+        Task SaveHireCategoryAsync(HireCategory hireCategory);
         Task DeleteHireCategoryAsync(int id);
     }
 }

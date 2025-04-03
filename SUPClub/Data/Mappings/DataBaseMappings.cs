@@ -9,6 +9,7 @@ namespace SUPClub.Data.Mappings
         public DataBaseMappings()
         {
             CreateMap<HireCategoryEntity, HireCategory>().ReverseMap();
+            CreateMap<HireSubCategoryEntity, HireSubCategory>().ReverseMap();
         }
     }
 }

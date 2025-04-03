@@ -37,7 +37,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<HireCategory>(entity);
         }
 
-        public async Task<HireCategory?> SaveHireCategoryAsync(HireCategory hireCategory)
+        public async Task SaveHireCategoryAsync(HireCategory hireCategory)
         {
             var entity = _mapper.Map<HireCategoryEntity>(hireCategory);
             if (entity.Id == default)
@@ -49,7 +49,6 @@ namespace SUPClub.Data.Repositories.EntityFramework
                 _context.Entry(entity).State = EntityState.Modified;
             }
             await _context.SaveChangesAsync();
-            return hireCategory;
         }
         public async Task DeleteHireCategoryAsync(int id)
         {

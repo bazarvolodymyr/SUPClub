@@ -35,6 +35,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddAutoMapper(typeof(DataBaseMappings));
 builder.Services.AddScoped<IHireCategoryRepository, HireCategoryRepositoryEF>();
+builder.Services.AddScoped<IHireSubCategoryRepository, HireSubCategoryRepositoryEF>();
 builder.Services.AddScoped<ImageHandler>();
 
 var app = builder.Build();
