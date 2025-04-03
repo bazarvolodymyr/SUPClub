@@ -29,8 +29,8 @@
 	code, del, dfn, em, img, ins, kbd, q, s, samp,
 	small, strike, strong, sub, sup, tt, var, b,
 	u, i, center, dl, dt, dd, ol, ul, li, fieldset,
-	form, label, legend, table, caption, tbody,
-	tfoot, thead, tr, th, td, article, aside,
+	form, label, legend,  caption, article, aside,
+	//tfoot, thead, tr, th, td, table,tbody,
 	canvas, details, embed, figure, figcaption,
 	footer, header, hgroup, menu, nav, output, ruby,
 	section, summary, time, mark, audio, video {
@@ -41,11 +41,17 @@
 		font: inherit;
 		vertical-align: baseline;
 	}
-
-	article, aside, details, figcaption, figure,
-	footer, header, hgroup, menu, nav, section {
-		display: block;
+	tfoot, thead, tr, th, td, table, tbody {
+		border: 3px solid;
+		margin: 0;
+		padding: 5px;
+		font-size: 100%;
 	}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
 
 	body {
 		line-height: 1;
@@ -385,40 +391,40 @@ form {
 
 /* Tables */
 
-	table {
+table {
+	width: 100%;
+
+	&.default {
 		width: 100%;
 
-		&.default {
-			width: 100%;
+		tr {
+			border-top: solid 1px #eee;
 
-			tr {
-				border-top: solid 1px #eee;
-
-				&:first-child {
-					border-top: 0;
-				}
-			}
-
-			td {
-				padding: 0.5em 1em 0.5em 1em;
-			}
-
-			th {
-				text-align: left;
-				padding: 0.5em 1em 0.5em 1em;
-				text-transform: uppercase;
-				font-weight: 800;
-				letter-spacing: 0.04em;
-				margin: 0 0 1em 0;
-				font-size: 0.8em;
-			}
-
-			thead {
-				background: #404248;
-				color: #fff;
+			&:first-child {
+				border-top: 0;
 			}
 		}
+
+		td {
+			padding: 0.5em 1em 0.5em 1em;
+		}
+
+		th {
+			text-align: left;
+			padding: 0.5em 1em 0.5em 1em;
+			text-transform: uppercase;
+			font-weight: 800;
+			letter-spacing: 0.04em;
+			margin: 0 0 1em 0;
+			font-size: 0.8em;
+		}
+
+		thead {
+			background: #404248;
+			color: #fff;
+		}
 	}
+}
 
 /* Image */
 

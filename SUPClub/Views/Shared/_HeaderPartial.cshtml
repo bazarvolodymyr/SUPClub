@@ -8,6 +8,9 @@
 				<nav id="nav">
 					<ul>
 						<li>
+							<a asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+						</li>
+						<li>
 							@if (User.Identity!.IsAuthenticated)
 							{
 								<form asp-area="" asp-controller="Account" asp-action="Logout" method="post">

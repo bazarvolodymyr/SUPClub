@@ -1,0 +1,36 @@
+﻿@model EditHireCategoryVM
+@{
+    string? strTitle = "Редагування категорії";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <h1>@strTitle</h1>
+    <div class="div-box">
+        <form asp-controller="AdminHireCategory" asp-action="EditCategory" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ImageUrl" />
+            <div asp-validation-summary="All"></div>
+            <div>
+                <label asp-for="Name"></label>
+                <input asp-for="Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div>
+                <label asp-for="ImageUrl"></label>
+                <input type="file" name="titleImageFile" id="titleImageFile" />
+                <div>
+                    <img class="img-block" width="100" height="100" src="~/img/@Model.ImageUrl" />
+                </div>
+            </div>
+            <div>
+                <label asp-for="IsActive"></label>
+                <input asp-for="IsActive" />
+                <span asp-validation-for="IsActive"></span>
+            </div>
+
+            <div>
+                <input type="submit" value="Зберегти зміни" />
+            </div>
+        </form>
+    </div>
+</div>

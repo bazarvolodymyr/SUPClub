@@ -1,6 +1,7 @@
 ﻿@{
     string? strTitle = "Керування категоріями";
     ViewBag.Title = strTitle;
+    IEnumerable<HireCategoryInfoVM> categories = ViewBag.HireCategories;
 }
 <div>
     <h1>@strTitle</h1>
@@ -9,4 +10,42 @@
             <input type="submit" value="Додати категорію" />
         </form>
     </div>
+    @if(categories.Any())
+    {
+        <div class="div-box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Зображення</th>
+                        <th>Назва</th>
+                        <th>Активність</th>
+                        <th>Автор</th>
+                        <th>Дата створення</th>
+                        <th>Останє оновлення</th>
+                        <th>Редагувати</th>
+                        <th>Видалити</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in categories)
+                    {
+                        <tr>
+                            <td><img class="img-block" width="100" height="100" src="~/img/@category.ImageUrl" /></td>
+                            <td>@category.Name</td>
+                            <td>@(category.IsActive ? "Так" : "Ні")</td>
+                            <td>@category.CreateAt</td>
+                            <td>@category.CreateDate</td>
+                            <td>@category.UpdateDate</td>
+                            <td>
+                                <a asp-controller="AdminHireCategory" asp-action="EditCategory" asp-route-id="@category.Id" class="button">Оновити</a>
+                            </td>
+                            <td>
+                                <a asp-controller="AdminHireCategory" asp-action="DeleteCategory" asp-route-id="@category.Id" class="button">Видалити</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
 </div>

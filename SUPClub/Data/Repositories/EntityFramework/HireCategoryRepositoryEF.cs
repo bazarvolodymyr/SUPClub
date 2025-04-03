@@ -46,7 +46,6 @@ namespace SUPClub.Data.Repositories.EntityFramework
             }
             else
             {
-                entity.UpdateDate = DateTime.UtcNow;
                 _context.Entry(entity).State = EntityState.Modified;
             }
             await _context.SaveChangesAsync();
