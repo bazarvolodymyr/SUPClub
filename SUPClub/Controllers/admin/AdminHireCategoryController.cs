@@ -5,7 +5,7 @@ using SUPClub.Data.Entities;
 using SUPClub.Data.Repositories.Abstract;
 using SUPClub.Infrastructure;
 using SUPClub.Models;
-using SUPClub.Models.DTO;
+using SUPClub.Models.DTO.HieCategoryDTO;
 
 namespace SUPClub.Controllers.admin
 {
@@ -62,7 +62,7 @@ namespace SUPClub.Controllers.admin
             return View(new CreateHireCategoryVM());
         }
         [HttpPost]
-        public async Task<IActionResult> AddCategory(CreateHireCategoryVM model, IFormFile titleImageFile)
+        public async Task<IActionResult> AddCategory(CreateHireCategoryVM model, IFormFile? titleImageFile)
         {
             if (!ModelState.IsValid)
             {

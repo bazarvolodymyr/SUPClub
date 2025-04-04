@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SUPClub.Data.Entities;
-using SUPClub.Models.DTO;
+using SUPClub.Models.DTO.AccountDTO;
 
 namespace SUPClub.Controllers
 {

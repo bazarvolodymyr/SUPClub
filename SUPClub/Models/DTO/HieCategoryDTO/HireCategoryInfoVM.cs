@@ -1,4 +1,4 @@
-﻿namespace SUPClub.Models.DTO
+﻿namespace SUPClub.Models.DTO.HieCategoryDTO
 {
     public class HireCategoryInfoVM : EditHireCategoryVM
     {

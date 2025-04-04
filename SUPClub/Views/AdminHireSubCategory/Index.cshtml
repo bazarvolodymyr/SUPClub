@@ -1,0 +1,51 @@
+﻿@{
+    string? strTitle = "Керування підкатегоріями";
+    ViewBag.Title = strTitle;
+    IEnumerable<HireSubCategoryInfoVM> categories = ViewBag.HireSubCategories;
+}
+<div>
+    <h1>@strTitle</h1>
+    <div class="div-box">
+        <form asp-area="" asp-controller="AdminHireSubCategory" asp-action="AddSubCategory" method="get">
+            <input type="submit" value="Додати підкатегорію" />
+        </form>
+    </div>
+    @if (categories.Any())
+    {
+        <div class="div-box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Назва</th>
+                        <th>Категорія</th>
+                        <th>Активність</th>
+                        <th>Автор</th>
+                        <th>Дата створення</th>
+                        <th>Останє оновлення</th>
+                        <th>Редагувати</th>
+                        <th>Видалити</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in categories)
+                    {
+                        <tr>
+                            <td>@category.Name</td>
+                            <td>@category.CategoryName</td>
+                            <td>@(category.IsActive ? "Так" : "Ні")</td>
+                            <td>@category.CreateAt</td>
+                            <td>@category.CreatedDate</td>
+                            <td>@category.UpdateDate</td>
+                            <td>
+                                <a asp-controller="AdminHireSubCategory" asp-action="EditSubCategory" asp-route-id="@category.Id" class="button">Оновити</a>
+                            </td>
+                            <td>
+                                <a asp-controller="AdminHireSubCategory" asp-action="DeleteSubCategory" asp-route-id="@category.Id" class="button">Видалити</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

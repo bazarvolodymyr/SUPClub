@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SUPClub.Models.DTO
+namespace SUPClub.Models.DTO.AccountDTO
 {
     public class RegisterUserVM
     {
         [Required]
-        [StringLength(100, ErrorMessage ="Максимальна довжина імені 100 символів")]
+        [StringLength(100, ErrorMessage = "Максимальна довжина імені 100 символів")]
         [Display(Name = "Ім'я")]
         public string? FirstName { get; set; }
         [Required]

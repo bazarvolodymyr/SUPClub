@@ -8,11 +8,11 @@
         private List<Equipment> _equipments;
         public int Id { get; private set; }
         public string? Name { get; private set; }
-        public int HireCategoryId { get; private set; }
+        public int? HireCategoryId { get; private set; }
         public bool IsActive { get; private set; }
         public string? CreateById { get; private set; }
         public bool IsDeleted { get; private set; }
-        public DateTime CreatedDate { get; private set; }
+        public DateTime CreateDate { get; private set; }
         public DateTime UpdateDate { get; private set; }
         public List<Equipment> Equipments
         {
@@ -20,7 +20,7 @@
         }
         private HireSubCategory(
             string? name,
-            int hireCategoryId,
+            int? hireCategoryId,
             bool isActive,
             string? createById,
             bool isDeleted,
@@ -34,10 +34,10 @@
             CreateById = createById;
             IsDeleted = isDeleted;
             _equipments = equipments;
-            CreatedDate = createDate;
+            CreateDate = createDate;
             UpdateDate = updateDate;
         }
-        public HireSubCategory Update(string? name, int hireCategoryId, bool isActive)
+        public HireSubCategory Update(string? name, int? hireCategoryId, bool isActive)
         {
             if (string.IsNullOrWhiteSpace(name) || name.Length > MAX_LENGHT_NAME)
             {
@@ -51,7 +51,7 @@
             return this;
 
         }
-        public static HireSubCategory Create(string? name, int hireCategoryId, 
+        public static HireSubCategory Create(string? name, int? hireCategoryId, 
             bool isActive, string? createById)
         {
             if (string.IsNullOrWhiteSpace(name) || name.Length > MAX_LENGHT_NAME)

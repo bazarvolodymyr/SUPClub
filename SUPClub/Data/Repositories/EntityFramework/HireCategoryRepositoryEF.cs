@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SUPClub.Data.Entities;
 using SUPClub.Data.Repositories.Abstract;
 using SUPClub.Models;
+using SUPClub.Models.DTO.HieCategoryDTO;
 
 namespace SUPClub.Data.Repositories.EntityFramework
 {
@@ -26,8 +27,12 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<IEnumerable<HireCategory>>(entities);
         }
 
-        public async Task<HireCategory?> GetHireCategoryByIdAsync(int id)
+        public async Task<HireCategory?> GetHireCategoryByIdAsync(int? id)
         {
+            if (id == null)
+            {
+                return null;
+            }
             var entity = await _context.HireCategories
                 .AsNoTracking()
                 .Where(x => x.IsDeleted == false)
@@ -37,6 +42,17 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<HireCategory>(entity);
         }
 
+        public async Task<IEnumerable<ViewHireCategory>> GetActiveViewHireCategoriesAsync()
+        {
+            List<ViewHireCategory> viewHireCategories = new List<ViewHireCategory> ();
+            viewHireCategories = await _context.HireCategories
+                .AsNoTracking()
+                .Where(x => x.IsDeleted == false)
+                .Where(x => x.IsActive == true)
+                .Select(x => new ViewHireCategory { Id = x.Id, Name = x.Name, imageUrl = x.ImageUrl})
+                .ToListAsync();
+            return viewHireCategories;
+        }
         public async Task SaveHireCategoryAsync(HireCategory hireCategory)
         {
             var entity = _mapper.Map<HireCategoryEntity>(hireCategory);

@@ -45,7 +45,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
                 .ToListAsync();
             return _mapper.Map<IEnumerable<HireSubCategory>>(entities);
         }
-        public async Task SaveHireCategoryAsync(HireSubCategory hireCategory)
+        public async Task SaveHireSubCategoryAsync(HireSubCategory hireCategory)
         {
             var entity = _mapper.Map<HireSubCategoryEntity>(hireCategory);
             if (entity.Id == default)

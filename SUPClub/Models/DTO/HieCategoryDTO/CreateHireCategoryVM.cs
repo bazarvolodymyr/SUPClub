@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SUPClub.Models.DTO
+namespace SUPClub.Models.DTO.HieCategoryDTO
 {
     public class CreateHireCategoryVM
     {
