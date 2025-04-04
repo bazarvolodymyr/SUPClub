@@ -56,10 +56,10 @@
             {
                 throw new ArgumentException(nameof(imageUrl));
             }
-            Name = name;
+            Name = name.Trim();
             ImageUrl = imageUrl;
             IsActive = isActive;
-            UpdateDate = DateTime.UtcNow;  
+            UpdateDate = DateTime.Now;  
             return this;
 
         }
@@ -78,7 +78,7 @@
                 throw new ArgumentException(nameof(createById));
             }
             return new HireCategory(name.Trim(), imageUrl, isActive, createById, 
-                    false, new(), new(), DateTime.UtcNow, DateTime.UtcNow);
+                    false, new(), new(), DateTime.Now, DateTime.Now);
 
         }
     }

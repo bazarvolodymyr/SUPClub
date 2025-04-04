@@ -44,10 +44,10 @@
                 throw new ArgumentException(nameof(name));
             }
             
-            Name = name;
+            Name = name.Trim();
             HireCategoryId = hireCategoryId;
             IsActive = isActive;
-            UpdateDate = DateTime.UtcNow;
+            UpdateDate = DateTime.Now;
             return this;
 
         }
@@ -64,7 +64,7 @@
             }
 
             return new HireSubCategory(name.Trim(), hireCategoryId, isActive, createById,
-                                            false, new(), DateTime.UtcNow, DateTime.UtcNow);
+                                            false, new(), DateTime.Now, DateTime.Now);
         }
     }
 }
