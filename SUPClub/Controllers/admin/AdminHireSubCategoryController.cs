@@ -2,102 +2,44 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SUPClub.Data.Entities;
-using SUPClub.Data.Repositories.Abstract;
-using SUPClub.Infrastructure;
-using SUPClub.Models;
-using SUPClub.Models.DTO.HieCategoryDTO;
 using SUPClub.Models.DTO.HireSubCategoryDTO;
+using SUPClub.Services.Abstract;
 
 namespace SUPClub.Controllers.admin
 {
     [Authorize(Roles = "admin")]
     public class AdminHireSubCategoryController : Controller
     {
-        private IHireSubCategoryRepository _hireSubCategoryRepository;
-        private IHireCategoryRepository _hireCategoryRepository;
+        private readonly IHireSubCategoryService _hireSubCategoryService;
+        private readonly IHireCategoryService _hireCategoryService;
         private UserManager<AppUser> _userManager;
-        public AdminHireSubCategoryController(IHireSubCategoryRepository hireSubCategoryRepository,
-                                              IHireCategoryRepository hireCategoryRepository,
+        public AdminHireSubCategoryController(IHireSubCategoryService hireSubCategoryService,
+                                              IHireCategoryService hireCategoryService,
                                               UserManager<AppUser> userManager)
         {
-            _hireSubCategoryRepository = hireSubCategoryRepository;
-            _hireCategoryRepository = hireCategoryRepository;
+            _hireSubCategoryService = hireSubCategoryService;
+            _hireCategoryService = hireCategoryService;
             _userManager = userManager;
         }
         public async Task<IActionResult> Index()
         {
-            var subCategories = await _hireSubCategoryRepository.GetHireSubCategoriesAsync();
-            var categoriesInfo = new List<HireSubCategoryInfoVM>();
-            if (subCategories == null)
-            {
-                ViewBag.HireSubCategories = categoriesInfo;
-                return View();
-            }
-            
-            foreach (var subCategory in subCategories)
-            {
-                string userName = "";
-                string categoryName = "";
-                var category = await _hireCategoryRepository.GetHireCategoryByIdAsync(subCategory.HireCategoryId);
-                if (subCategory.CreateById != null)
-                {
-                    var user = await _userManager.FindByIdAsync(subCategory.CreateById);
-                    userName = user!.UserName ?? "";
-                }
-                if (category != null)
-                {
-                    categoryName = category.Name!;
-                }
-                categoriesInfo.Add(new HireSubCategoryInfoVM()
-                {
-                    Id = subCategory.Id,
-                    Name = subCategory.Name,
-                    HireCategoryId = subCategory.HireCategoryId,
-                    CategoryName = categoryName,
-                    IsActive = subCategory.IsActive,
-                    CreateAt = userName,
-                    CreatedDate = subCategory.CreateDate,
-                    UpdateDate = subCategory.UpdateDate
-                });
-            }
-            ViewBag.HireSubCategories = categoriesInfo;
+            ViewBag.HireSubCategories = await _hireSubCategoryService.GetAllInfoAsync();
             return View();
         }
-        [HttpGet]
-        public async Task<IActionResult> AddSubCategory()
-        {
-            ViewBag.ViewCategories  = await _hireCategoryRepository.GetActiveViewHireCategoriesAsync();
-            return View(new CreateHireSubCategoryVM());
-        }
-        [HttpPost]
-        public async Task<IActionResult> AddSubCategory(CreateHireSubCategoryVM model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            
-            var appUser = await _userManager.GetUserAsync(User);
-            var subCategory = HireSubCategory.Create(model.Name, model.HireCategoryId, model.IsActive, appUser!.Id);
-            await _hireSubCategoryRepository.SaveHireSubCategoryAsync(subCategory);
-            return RedirectToAction("Index");
-        }
+        
         [HttpGet]
         public async Task<IActionResult> EditSubCategory([FromRoute] int id)
         {
-            var sudCategory = await _hireSubCategoryRepository.GetHireSubCategoryByIdAsync(id);
-            ViewBag.ViewCategories = await _hireCategoryRepository.GetActiveViewHireCategoriesAsync();
-            if (sudCategory == null)
+            ViewBag.ViewCategories = await _hireCategoryService.GetActiveViewInfoAsync();
+            if (id == default)
+            {
+                return View(new EditHireSubCategoryVM());
+            }
+            var editSubCategory = await _hireSubCategoryService.GetEditModelAsync(id);
+            if (editSubCategory == null)
             {
                 return NotFound();
             }
-            var editSubCategory = new EditHireSubCategoryVM()
-            {
-                Id = sudCategory.Id,
-                Name = sudCategory.Name,
-                HireCategoryId = sudCategory.HireCategoryId,
-                IsActive = sudCategory.IsActive
-            };
             return View(editSubCategory);
         }
         [HttpPost]
@@ -107,32 +49,23 @@ namespace SUPClub.Controllers.admin
             {
                 return View(model);
             }
-            var subCategory = await _hireSubCategoryRepository.GetHireSubCategoryByIdAsync(model.Id);
-            if (subCategory == null)
+            var appUser = await _userManager.GetUserAsync(User);
+            var error = await _hireSubCategoryService.SaveAsync(model, appUser!.Id);
+            if (error != null)
             {
-                return NotFound();
+                return NotFound(error);
             }
-
-            subCategory.Update(model.Name, model.HireCategoryId, model.IsActive);
-            await _hireSubCategoryRepository.SaveHireSubCategoryAsync(subCategory);
             return RedirectToAction("Index");
         }
         [HttpGet]
         public async Task<IActionResult> DeleteSubCategory([FromRoute] int id)
         {
-            var subCategory = await _hireSubCategoryRepository.GetHireSubCategoryByIdAsync(id);
+            var subCategory = await _hireSubCategoryService.GetEditModelAsync(id);
             if (subCategory == null)
             {
                 return NotFound();
             }
-            var editCategory = new EditHireSubCategoryVM()
-            {
-                Id = subCategory.Id,
-                Name = subCategory.Name,
-                HireCategoryId = subCategory.HireCategoryId,
-                IsActive = subCategory.IsActive
-            };
-            return View(editCategory);
+            return View(subCategory);
         }
         [HttpPost]
         public async Task<IActionResult> DeleteSubCategory(EditHireSubCategoryVM model)
@@ -141,17 +74,12 @@ namespace SUPClub.Controllers.admin
             {
                 return NotFound();
             }
-            var equipment = await _hireSubCategoryRepository.GetHireSubCategoryByIdAsync(model.Id);
-            if (equipment == null)
+            var error = await _hireSubCategoryService.DeleteAsync(model.Id);
+            if (error != null)
             {
-                return NotFound();
-            }
-            if (equipment.Equipments.Any())
-            {
-                ModelState.AddModelError(string.Empty, "Підкатегорія містить продукти!");
+                ModelState.AddModelError(string.Empty, error);
                 return View(model);
             }
-            await _hireSubCategoryRepository.DeleteHireSubCategoryAsync(model.Id);
             return RedirectToAction("Index");
         }
     }

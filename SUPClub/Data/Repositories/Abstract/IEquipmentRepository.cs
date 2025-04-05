@@ -4,10 +4,10 @@ namespace SUPClub.Data.Repositories.Abstract
 {
     public interface IEquipmentRepository
     {
-        Task<IEnumerable<Equipment>> GetAllEquipmentsAsync();
-        Task<IEnumerable<Equipment>> GetEquipmentsBySubCategoryIdAsync(int subCategoryId);
-        Task<Equipment?> GeEquipmentByIdAsync(int id);
-        Task SaveEquipmentAsync(Equipment equipment);
-        Task DeleteEquipmentAsync(int id);
+        Task<IEnumerable<Equipment>> GetAllAsync();
+        Task<IEnumerable<Equipment>> GetBySubCategoryIdAsync(int subCategoryId);
+        Task<Equipment?> GetByIdAsync(int id);
+        Task SaveAsync(Equipment equipment);
+        Task DeleteAsync(int id);
     }
 }

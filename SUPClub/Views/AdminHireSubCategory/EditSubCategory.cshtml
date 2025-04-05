@@ -1,7 +1,14 @@
 ﻿@model EditHireSubCategoryVM
-
 @{
-    string? strTitle = "Редагування підкатегорії";
+    string? strTitle;
+    if(Model.Id == default)
+    {
+        strTitle = "Додати підкатегорію";
+    }
+    else
+    {
+        strTitle = "Редагування підкатегорії";
+    }
     ViewBag.Title = strTitle;
 }
 <div>
@@ -32,7 +39,7 @@
             </div>
 
             <div class="div-box">
-                <input type="submit" value="Зберегти зміни" />
+                <input type="submit" value="Зберегти" />
             </div>
         </form>
     </div>

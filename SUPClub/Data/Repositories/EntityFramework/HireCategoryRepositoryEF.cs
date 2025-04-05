@@ -16,7 +16,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             _context = appDbContext;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<HireCategory>> GetHireCategoriesAsync()
+        public async Task<IEnumerable<HireCategory>> GetAllAsync()
         {
             var entities = await _context.HireCategories
                 .AsNoTracking()
@@ -27,7 +27,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<IEnumerable<HireCategory>>(entities);
         }
 
-        public async Task<HireCategory?> GetHireCategoryByIdAsync(int? id)
+        public async Task<HireCategory?> GetByIdAsync(int? id)
         {
             if (id == null)
             {
@@ -42,7 +42,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<HireCategory>(entity);
         }
 
-        public async Task<IEnumerable<ViewHireCategory>> GetActiveViewHireCategoriesAsync()
+        public async Task<IEnumerable<ViewHireCategory>> GetActiveViewInfoAsync()
         {
             List<ViewHireCategory> viewHireCategories = new List<ViewHireCategory> ();
             viewHireCategories = await _context.HireCategories
@@ -53,7 +53,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
                 .ToListAsync();
             return viewHireCategories;
         }
-        public async Task SaveHireCategoryAsync(HireCategory hireCategory)
+        public async Task SaveAsync(HireCategory hireCategory)
         {
             var entity = _mapper.Map<HireCategoryEntity>(hireCategory);
             if (entity.Id == default)
@@ -66,7 +66,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             }
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteHireCategoryAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             var entity = await _context.HireCategories
                 .FirstOrDefaultAsync(x => x.Id == id);

@@ -22,11 +22,10 @@ namespace SUPClub.Services
             _imageHandler = imageHandler;
         }
 
-
         public async Task<IEnumerable<HireCategoryInfoVM>> GetAllInfoAsync()
         {
             var categoriesInfo = new List<HireCategoryInfoVM>();
-            var categories = await _hireCategoryRepository.GetHireCategoriesAsync();
+            var categories = await _hireCategoryRepository.GetAllAsync();
             if (categories == null)
             {
                 return categoriesInfo;
@@ -53,10 +52,13 @@ namespace SUPClub.Services
             }
             return categoriesInfo;
         }
-
+        public async Task<IEnumerable<ViewHireCategory>> GetActiveViewInfoAsync()
+        {
+            return await _hireCategoryRepository.GetActiveViewInfoAsync();
+        }
         public async Task<EditHireCategoryVM?> GetEditModelAsync(int id)
         {
-            var category = await _hireCategoryRepository.GetHireCategoryByIdAsync(id);
+            var category = await _hireCategoryRepository.GetByIdAsync(id);
             if (category == null)
             {
                 return null;
@@ -86,19 +88,19 @@ namespace SUPClub.Services
             }
             else
             {
-                category = await _hireCategoryRepository.GetHireCategoryByIdAsync(editModel.Id);
+                category = await _hireCategoryRepository.GetByIdAsync(editModel.Id);
                 if (category == null)
                 {
                     return "Категорію не знайддено";
                 }
                 category.Update(editModel.Name, editModel.ImageUrl, editModel.IsActive);
             }
-            await _hireCategoryRepository.SaveHireCategoryAsync(category);
+            await _hireCategoryRepository.SaveAsync(category);
             return null;
         }
         public async Task<string?> DeleteAsync(int id)
         {
-            var category = await _hireCategoryRepository.GetHireCategoryByIdAsync(id);
+            var category = await _hireCategoryRepository.GetByIdAsync(id);
             if (category == null)
             {
                 return "Категорію не знайддено";
@@ -107,8 +109,9 @@ namespace SUPClub.Services
             {
                 return "Категорія містить підкатегорії чи продукти!"; 
             }
-            await _hireCategoryRepository.DeleteHireCategoryAsync(id);
+            await _hireCategoryRepository.DeleteAsync(id);
             return null;
         }
+
     }
 }

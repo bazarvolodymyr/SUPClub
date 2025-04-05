@@ -4,10 +4,10 @@ namespace SUPClub.Data.Repositories.Abstract
 {
     public interface IHireSubCategoryRepository
     {
-        Task<IEnumerable<HireSubCategory>> GetHireSubCategoriesAsync();
-        Task<IEnumerable<HireSubCategory>> GetHireSubCategoriesByCategoryIdAsync(int categoryId);
-        Task<HireSubCategory?> GetHireSubCategoryByIdAsync(int id);
-        Task SaveHireSubCategoryAsync(HireSubCategory hireCategory);
-        Task DeleteHireSubCategoryAsync(int id);
+        Task<IEnumerable<HireSubCategory>> GetAllAsync();
+        Task<IEnumerable<HireSubCategory>> GetByCategoryIdAsync(int categoryId);
+        Task<HireSubCategory?> GetByIdAsync(int id);
+        Task SaveAsync(HireSubCategory hireCategory);
+        Task DeleteAsync(int id);
     }
 }

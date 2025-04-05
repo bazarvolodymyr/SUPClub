@@ -15,7 +15,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             _context = context;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<HireSubCategory>> GetHireSubCategoriesAsync()
+        public async Task<IEnumerable<HireSubCategory>> GetAllAsync()
         {
             var entities = await _context.HireSubCategories
                 .AsNoTracking()
@@ -25,7 +25,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<IEnumerable<HireSubCategory>>(entities);
         }
 
-        public async Task<HireSubCategory?> GetHireSubCategoryByIdAsync(int id)
+        public async Task<HireSubCategory?> GetByIdAsync(int id)
         {
             var entity = await _context.HireSubCategories
                 .AsNoTracking()
@@ -35,7 +35,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<HireSubCategory>(entity);
         }
 
-        public async Task<IEnumerable<HireSubCategory>> GetHireSubCategoriesByCategoryIdAsync(int categoryId)
+        public async Task<IEnumerable<HireSubCategory>> GetByCategoryIdAsync(int categoryId)
         {
             var entities = await _context.HireSubCategories
                 .AsNoTracking()
@@ -45,7 +45,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
                 .ToListAsync();
             return _mapper.Map<IEnumerable<HireSubCategory>>(entities);
         }
-        public async Task SaveHireSubCategoryAsync(HireSubCategory hireCategory)
+        public async Task SaveAsync(HireSubCategory hireCategory)
         {
             var entity = _mapper.Map<HireSubCategoryEntity>(hireCategory);
             if (entity.Id == default)
@@ -58,7 +58,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             }
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteHireSubCategoryAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             var entity = await _context.HireSubCategories
                .FirstOrDefaultAsync(x => x.Id == id);

@@ -15,7 +15,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             _context = context;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<Equipment>> GetAllEquipmentsAsync()
+        public async Task<IEnumerable<Equipment>> GetAllAsync()
         {
             var entities = await _context.Equipments
                   .AsNoTracking()
@@ -24,7 +24,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<IEnumerable<Equipment>>(entities);
         }
 
-        public async Task<Equipment?> GeEquipmentByIdAsync(int id)
+        public async Task<Equipment?> GetByIdAsync(int id)
         {
             var entities = await _context.Equipments
                   .AsNoTracking()
@@ -33,7 +33,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<Equipment>(entities);
         }
 
-        public async Task<IEnumerable<Equipment>> GetEquipmentsBySubCategoryIdAsync(int subCategoryId)
+        public async Task<IEnumerable<Equipment>> GetBySubCategoryIdAsync(int subCategoryId)
         {
             var entities = await _context.Equipments
                   .AsNoTracking()
@@ -43,7 +43,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<IEnumerable<Equipment>>(entities);
         }
 
-        public async Task SaveEquipmentAsync(Equipment equipment)
+        public async Task SaveAsync(Equipment equipment)
         {
             var entity = _mapper.Map<EquipmentEntity>(equipment);
             if (entity.Id == default)
@@ -56,7 +56,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
             }
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteEquipmentAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             var entity = await _context.Equipments
                .FirstOrDefaultAsync(x => x.Id == id);

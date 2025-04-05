@@ -6,6 +6,7 @@ namespace SUPClub.Services.Abstract
     {
         Task<IEnumerable<HireCategoryInfoVM>> GetAllInfoAsync();
         Task<EditHireCategoryVM?> GetEditModelAsync(int id);
+        Task<IEnumerable<ViewHireCategory>> GetActiveViewInfoAsync();
         Task<string?> SaveAsync(EditHireCategoryVM editHireCategoryVM,
                                 IFormFile? titleImageFile, string? userId);
         Task<string?> DeleteAsync(int id);

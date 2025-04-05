@@ -6,9 +6,9 @@
 <div>
     <h1>@strTitle</h1>
     <div class="div-box">
-        <form asp-area="" asp-controller="AdminHireSubCategory" asp-action="AddSubCategory" method="get">
-            <input type="submit" value="Додати підкатегорію" />
-        </form>
+        <a asp-controller="AdminHireSubCategory" asp-action="EditSubCategory" asp-route-id="" class="button">
+            Додати підкатегорію
+        </a>
     </div>
     @if (categories.Any())
     {
