@@ -7,6 +7,8 @@ using SUPClub.Data.Mappings;
 using SUPClub.Data.Repositories.Abstract;
 using SUPClub.Data.Repositories.EntityFramework;
 using SUPClub.Infrastructure;
+using SUPClub.Services;
+using SUPClub.Services.Abstract;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
@@ -34,10 +36,12 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddAutoMapper(typeof(DataBaseMappings));
+builder.Services.AddScoped<ImageHandler>();
 builder.Services.AddScoped<IHireCategoryRepository, HireCategoryRepositoryEF>();
 builder.Services.AddScoped<IHireSubCategoryRepository, HireSubCategoryRepositoryEF>();
 builder.Services.AddScoped<IEquipmentRepository, EquipmentRepositoryEF>();
-builder.Services.AddScoped<ImageHandler>();
+
+builder.Services.AddScoped<IHireCategoryService, HireCategoryService>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
