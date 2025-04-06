@@ -22,7 +22,7 @@ namespace SUPClub.Models
         public bool IsActive { get; private set; }
         public string? CreateById { get; private set; }
         public bool IsDeleted { get; private set; }
-        public DateTime CreatedDate { get; private set; }
+        public DateTime CreateDate { get; private set; }
         public DateTime UpdateDate { get; private set; }
         
         private Equipment(
@@ -51,7 +51,7 @@ namespace SUPClub.Models
             CreateById = createById;
             IsActive = isActive;
             IsDeleted = isDeleted;
-            CreatedDate = createDate;
+            CreateDate = createDate;
             UpdateDate = updateDate;
         }
         public Equipment Update(string? name, string? descriptionShort,
@@ -71,6 +71,14 @@ namespace SUPClub.Models
                 throw new ArgumentException(nameof(description));
             }
             if (photo != null && photo.Length > MAX_LENGHT_PHOTO_URL)
+            {
+                throw new ArgumentException(nameof(photo));
+            }
+            if (quantity < 0)
+            {
+                throw new ArgumentException(nameof(quantity));
+            }
+            if (price < 0)
             {
                 throw new ArgumentException(nameof(photo));
             }
@@ -102,6 +110,14 @@ namespace SUPClub.Models
                 throw new ArgumentException(nameof(description));
             }
             if (photo != null && photo.Length > MAX_LENGHT_PHOTO_URL)
+            {
+                throw new ArgumentException(nameof(photo));
+            }
+            if (quantity < 0)
+            {
+                throw new ArgumentException(nameof(quantity));
+            }
+            if (price < 0)
             {
                 throw new ArgumentException(nameof(photo));
             }

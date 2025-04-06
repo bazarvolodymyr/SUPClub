@@ -1,0 +1,113 @@
+﻿@model EditEquipmentVM
+@{
+    string? strTitle;
+    if(Model.Id == default)
+    {
+        strTitle = "Додати спорядження";
+    }
+    else
+    {
+        strTitle = "Редагування спорядження";
+    }
+    ViewBag.Title = strTitle;
+}
+<div class="col-12 col-12-medium imp-medium">
+    <h1>@strTitle</h1>
+    <div>
+        <form asp-area="" asp-controller="AdminEquipment" asp-action="EditEquipment" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Photo" />
+            <div asp-validation-summary="All"></div>
+            <div class ="div-box">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div class ="div-box">
+                <label asp-for="DescriptionShort"></label>
+                <input asp-for="DescriptionShort" />
+                <span asp-validation-for="DescriptionShort"></span>
+            </div>
+            <div class ="div-box">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description"></textarea>
+                <span asp-validation-for="Description"></span>
+            </div>
+            <div>
+                <label asp-for="Photo"></label>
+                <input type="file" name="titleImageFile" id="titleImageFile" />
+                <div>
+                    <img class="img-block" width="300" height="300" src="~/img/@Model.Photo" />
+                </div>
+            </div>
+            <div class ="div-box">
+                <label asp-for="Quantity"></label>
+                <input asp-for="Quantity" />
+                <span asp-validation-for="Quantity"></span>
+            </div>
+            <div class ="div-box">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" />
+                <span asp-validation-for="Price"></span>
+            </div>
+            <div class="div-box">
+                <label asp-for="HireCategoryId"></label>
+                <select asp-for="HireCategoryId" id="categories" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))">
+                    <option value="">Виберіть категорію</option>
+                </select>
+                <label asp-for="HireSubCategoryId"></label>
+                <select asp-for="HireSubCategoryId" id="subcategories">
+                    <option value="">Виберіть підкатегорію</option>
+                </select>
+            </div >
+            <div class ="div-box">
+                <label asp-for="IsActive"></label>
+                <input asp-for="IsActive" />
+                <span asp-validation-for="IsActive"></span>
+            </div>
+
+            <div class="div-box">
+                <input type="submit" value="Зберегти" />
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    window.onload = function(){
+        var categoryId = document.getElementById('categories').value;
+        var subcategorySelect = document.getElementById('subcategories');
+        if (categoryId) {
+            fetch('/AdminEquipment/GetSubCategories?categoryId=' + categoryId)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(sub => {
+                        var option = document.createElement('option');
+                        option.value = sub.id;
+                        option.text = sub.name;
+                        if(subcategorySelect == sub.id)
+                        {option.selected="selected";}
+                        subcategorySelect.appendChild(option);
+                    });
+                });
+        }
+    }
+    document.getElementById('categories').addEventListener('change', function() {
+        var categoryId = this.value;
+        var subcategorySelect = document.getElementById('subcategories');
+
+        subcategorySelect.innerHTML = '<option value="">Виберіть підкатегорію</option>';
+
+        if (categoryId) {
+            fetch('/AdminEquipment/GetSubCategories?categoryId=' + categoryId)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(sub => {
+                        var option = document.createElement('option');
+                        option.value = sub.id;
+                        option.text = sub.name;
+                        subcategorySelect.appendChild(option);
+                    });
+                });
+        }
+    });
+</script>

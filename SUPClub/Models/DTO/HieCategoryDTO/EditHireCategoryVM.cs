@@ -5,7 +5,7 @@ namespace SUPClub.Models.DTO.HieCategoryDTO
     public class EditHireCategoryVM
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Назва не може бути пустою")]
         [StringLength(HireCategory.MAX_LENGHT_NAME, ErrorMessage = "Максимальна довжина імені {1} символів")]
         [Display(Name = "Назва категорії")]
         public string? Name { get; set; }

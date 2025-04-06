@@ -20,17 +20,17 @@ namespace SUPClub.Data.Repositories.EntityFramework
             var entities = await _context.HireSubCategories
                 .AsNoTracking()
                 .Where(x => x.IsDeleted == false)
-                .Include(x => x.Equipments)
+                .Include(x => x.Equipments.Where(d => d.IsDeleted == false))
                 .ToListAsync();
             return _mapper.Map<IEnumerable<HireSubCategory>>(entities);
         }
 
-        public async Task<HireSubCategory?> GetByIdAsync(int id)
+        public async Task<HireSubCategory?> GetByIdAsync(int? id)
         {
             var entity = await _context.HireSubCategories
                 .AsNoTracking()
                 .Where(x => x.IsDeleted == false)
-                .Include(e => e.Equipments)
+                .Include(e => e.Equipments.Where(d => d.IsDeleted == false))
                 .FirstOrDefaultAsync(x => x.Id == id);
             return _mapper.Map<HireSubCategory>(entity);
         }
@@ -41,7 +41,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
                 .AsNoTracking()
                 .Where(x => x.IsDeleted == false)
                 .Where(c => c.HireCategoryId == categoryId)
-                .Include(x => x.Equipments)
+                .Include(x => x.Equipments.Where(d => d.IsDeleted == false))
                 .ToListAsync();
             return _mapper.Map<IEnumerable<HireSubCategory>>(entities);
         }

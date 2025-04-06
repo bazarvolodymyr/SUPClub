@@ -47,6 +47,7 @@ namespace SUPClub.Controllers.admin
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.ViewCategories = await _hireCategoryService.GetActiveViewInfoAsync();
                 return View(model);
             }
             var appUser = await _userManager.GetUserAsync(User);

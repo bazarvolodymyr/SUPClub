@@ -11,7 +11,7 @@
     }
     ViewBag.Title = strTitle;
 }
-<div>
+<div class="col-12 col-12-medium imp-medium">
     <h1>@strTitle</h1>
     <div class="div-box">
         <form asp-area="" asp-controller="AdminHireSubCategory" asp-action="EditSubCategory" method="post">
@@ -31,8 +31,8 @@
                         <option value="@category.Id">@category.Name</option>
                     }
                 </select>
-            </div class="div-box">
-            <div>
+            </div >
+            <div class ="div-box">
                 <label asp-for="IsActive"></label>
                 <input asp-for="IsActive" />
                 <span asp-validation-for="IsActive"></span>

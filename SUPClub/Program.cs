@@ -43,6 +43,7 @@ builder.Services.AddScoped<IEquipmentRepository, EquipmentRepositoryEF>();
 
 builder.Services.AddScoped<IHireCategoryService, HireCategoryService>();
 builder.Services.AddScoped<IHireSubCategoryService, HireSubCategoryService>();
+builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

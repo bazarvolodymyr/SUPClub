@@ -1,0 +1,58 @@
+﻿@model IEnumerable<EquipmentInfoVM>
+@{
+    string? strTitle = "Керування спорядженням";
+    ViewBag.Title = strTitle;
+    //IEnumerable<HireSubCategoryInfoVM> categories = ViewBag.HireSubCategories;
+}
+<div>
+    <h1>@strTitle</h1>
+    <div class="div-box">
+        <a asp-controller="AdminEquipment" asp-action="EditEquipment" asp-route-id="" class="button">
+            Додати спорядження
+        </a>
+    </div>
+    @if (Model.Any())
+    {
+        <div class="div-box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Назва</th>
+                        <th>Кількість</th>
+                        <th>Ціна</th>
+                        <th>Категорія</th>
+                        <th>Підкатегорія</th>
+                        <th>Активність</th>
+                        <th>Автор</th>
+                        <th>Дата створення</th>
+                        <th>Останє оновлення</th>
+                        <th>Редагувати</th>
+                        <th>Видалити</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var equipment in Model)
+                    {
+                        <tr>
+                            <td>@equipment.Name</td>
+                            <td>@equipment.Quantity</td>
+                            <td>@equipment.Price</td>
+                            <td>@equipment.CategoryName</td>
+                            <td>@equipment.SubCategoryName</td>
+                            <td>@(equipment.IsActive ? "Так" : "Ні")</td>
+                            <td>@equipment.CreateAt</td>
+                            <td>@equipment.CreateDate</td>
+                            <td>@equipment.UpdateDate</td>
+                            <td>
+                                <a asp-controller="AdminEquipment" asp-action="EditEquipment" asp-route-id="@equipment.Id" class="button">Оновити</a>
+                            </td>
+                            <td>
+                                <a asp-controller="AdminEquipment" asp-action="DeleteSubCategory" asp-route-id="@equipment.Id" class="button">Видалити</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    } 
+</div>

@@ -4,6 +4,6 @@
     {
         public int? HireCategoryId { get; set; }
         public HireCategoryEntity? HireCategory { get; set; }
-        public ICollection<EquipmentEntity>? Equipments { get; set; }
+        public ICollection<EquipmentEntity> Equipments { get; set; } = new List<EquipmentEntity>();
     }
 }
