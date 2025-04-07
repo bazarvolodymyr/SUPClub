@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ListCategories>
+<nav id="nav">
+    <ul>
+        <li>
+            <a asp-area="" asp-controller="Home" asp-action="Index">Головна</a>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Services" asp-action="Index">Прокат</a>
+            <ul>
+                @foreach(ListCategories category in Model)
+                {
+                    <li>
+                        <a asp-controller="Services" asp-action="Show" asp-route-id="@category.Id">
+                            @if (category.ImageUrl != null)
+                            {
+                                <img class="img-block" width="50" height="50" src="~/img/@category.ImageUrl" />
+                            }
+                            @category.Name @(category.subCategory.Any() ? ">>>" : "")
+                        </a>
+                        @if(category.subCategory.Any())
+                        {
+                            <ul>
+                                @foreach (SubCategory subCategory in category.subCategory)
+                                {
+                                    <li>
+                                        <a asp-controller="Services" asp-action="Show" asp-route-id="@subCategory.Id">
+                                            @subCategory.Name
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </li>
+                }
+            </ul>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Home" asp-action="Contacts">Контакти</a>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+        </li>
+        <li>
+            @if (User.Identity!.IsAuthenticated)
+            {
+                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                    <input type="submit" value="Вихід" />
+                </form>
+            }
+            else
+            {
+                <a asp-area="" asp-controller="Account" asp-action="Login">Вхід</a>
+                <a asp-area="" asp-controller="Account" asp-action="Register">Регістрація</a>
+            }
+        </li>
+    </ul>
+</nav>

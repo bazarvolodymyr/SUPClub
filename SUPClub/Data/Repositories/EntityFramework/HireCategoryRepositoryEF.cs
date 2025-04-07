@@ -37,6 +37,7 @@ namespace SUPClub.Data.Repositories.EntityFramework
                 {
                     Id = c.Id,
                     Name = c.Name,
+                    ImageUrl = c.ImageUrl,
                     subCategory = c.HireSubCategories
                         .Where(d => d.IsDeleted == false)
                         .Select(s => new SubCategory() { Id = s.Id, Name = s.Name }) 
