@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using SUPClub.Data.Entities;
 using SUPClub.Data.Repositories.Abstract;
 using SUPClub.Infrastructure;
@@ -28,12 +27,7 @@ namespace SUPClub.Services
             _userManager = userManager;
             _imageHandler = imageHandler;
         }
-        public async Task<List<HireCategory>> CategoriesListAsync()
-        {
-            var categories = await _hireCategoryRepository.GetAllAsync();
-            return categories.ToList();
-        }
-
+        
         public async Task<IEnumerable<EquipmentInfoVM>> GetAllInfoAsync()
         {
             var equipmentsInfo = new List<EquipmentInfoVM>();
@@ -141,9 +135,15 @@ namespace SUPClub.Services
             return null;
         }
 
-        public Task<string?> DeleteAsync(int id)
+        public async Task<string?> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var equipment = await _equipmentRepository.GetByIdAsync(id);
+            if (equipment == null)
+            {
+                return "Спорядження не знайддено";
+            }
+            await _equipmentRepository.DeleteAsync(id);
+            return null;
         }
     }
 }

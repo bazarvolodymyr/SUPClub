@@ -26,6 +26,24 @@ namespace SUPClub.Data.Repositories.EntityFramework
                 .ToListAsync();
             return _mapper.Map<IEnumerable<HireCategory>>(entities);
         }
+        public async Task<IEnumerable<ListCategories>> GetListCategories()
+        {
+            List<ListCategories> listCategories = new List<ListCategories>();
+            listCategories = await _context.HireCategories
+                .AsNoTracking()
+                .Where(x => x.IsDeleted == false)
+                .Select(c =>
+                new ListCategories()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    subCategory = c.HireSubCategories
+                        .Where(d => d.IsDeleted == false)
+                        .Select(s => new SubCategory() { Id = s.Id, Name = s.Name }) 
+                        .ToList()
+                }).ToListAsync();
+            return listCategories;
+        }
 
         public async Task<HireCategory?> GetByIdAsync(int? id)
         {

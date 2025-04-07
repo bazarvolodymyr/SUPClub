@@ -91,6 +91,7 @@ namespace SUPClub.Models
             HireCategoryId = hireCategoryId;
             HireSubCategoryId = hireSubCategoryId;
             IsActive = isActive;
+            UpdateDate = DateTime.Now;
             return this;
         }
         public static Equipment Create(string? name, string? descriptionShort,

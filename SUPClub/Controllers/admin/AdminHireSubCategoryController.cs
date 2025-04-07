@@ -23,8 +23,7 @@ namespace SUPClub.Controllers.admin
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.HireSubCategories = await _hireSubCategoryService.GetAllInfoAsync();
-            return View();
+            return View(await _hireSubCategoryService.GetAllInfoAsync());
         }
         
         [HttpGet]

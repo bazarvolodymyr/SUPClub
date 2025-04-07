@@ -1,7 +1,7 @@
-﻿@{
+﻿@model IEnumerable<HireSubCategoryInfoVM>
+@{
     string? strTitle = "Керування підкатегоріями";
     ViewBag.Title = strTitle;
-    IEnumerable<HireSubCategoryInfoVM> categories = ViewBag.HireSubCategories;
 }
 <div>
     <h1>@strTitle</h1>
@@ -10,7 +10,7 @@
             Додати підкатегорію
         </a>
     </div>
-    @if (categories.Any())
+    @if (Model.Any())
     {
         <div class="div-box">
             <table>
@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var category in categories)
+                    @foreach (var category in Model)
                     {
                         <tr>
                             <td>@category.Name</td>

@@ -47,7 +47,7 @@
                                 <a asp-controller="AdminEquipment" asp-action="EditEquipment" asp-route-id="@equipment.Id" class="button">Оновити</a>
                             </td>
                             <td>
-                                <a asp-controller="AdminEquipment" asp-action="DeleteSubCategory" asp-route-id="@equipment.Id" class="button">Видалити</a>
+                                <a asp-controller="AdminEquipment" asp-action="DeleteEquipment" asp-route-id="@equipment.Id" class="button">Видалити</a>
                             </td>
                         </tr>
                     }
@@ -56,3 +56,4 @@
         </div>
     } 
 </div>
+@* onclick="return confirm('Ви впевнені, що хочете видалити спорядження?');" *@

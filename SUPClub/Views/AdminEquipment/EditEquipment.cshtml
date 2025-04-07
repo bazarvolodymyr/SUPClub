@@ -1,5 +1,6 @@
 ﻿@model EditEquipmentVM
 @{
+    int hsCategory =Model.HireSubCategoryId == default ?  0 : (int)Model.HireSubCategoryId!;
     string? strTitle;
     if(Model.Id == default)
     {
@@ -10,6 +11,7 @@
         strTitle = "Редагування спорядження";
     }
     ViewBag.Title = strTitle;
+    ViewBag.hsCategory = hsCategory;
 }
 <div class="col-12 col-12-medium imp-medium">
     <h1>@strTitle</h1>
@@ -84,13 +86,16 @@
                         var option = document.createElement('option');
                         option.value = sub.id;
                         option.text = sub.name;
-                        if(subcategorySelect == sub.id)
-                        {option.selected="selected";}
+                        if(@ViewBag.hsCategory == sub.id){
+                        option.selected="selected";}
                         subcategorySelect.appendChild(option);
                     });
                 });
         }
+        subcategorySelect.innerHTML=date.now();
     }
+</script>
+<script>
     document.getElementById('categories').addEventListener('change', function() {
         var categoryId = this.value;
         var subcategorySelect = document.getElementById('subcategories');

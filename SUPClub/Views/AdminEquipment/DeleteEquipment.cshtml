@@ -1,0 +1,37 @@
+﻿@model EditEquipmentVM
+@{
+    string? strTitle = "Видалити спорядження";
+    ViewBag.Title = strTitle;
+}
+<div class="col-12 col-12-medium imp-medium">
+    <h1>@strTitle</h1>
+    <div class="div-box">
+        <h2>@Model.Name</h2>
+        <div>
+            <img class="img-block" width="300" height="300" src="~/img/@Model.Photo" />
+        </div>
+        <p>@Model.DescriptionShort</p>
+    </div>
+    <div class="div-box">
+        <p>@Model.Description</p>
+    </div>
+    <div class="div-box">
+        <form asp-area="" asp-controller="AdminEquipment" asp-action="DeleteEquipment" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Photo" />
+            <input type="hidden" asp-for="Name" />
+            <input type="hidden" asp-for="DescriptionShort" />
+            <input type="hidden" asp-for="Description" />
+            <input type="hidden" asp-for="Quantity" />
+            <input type="hidden" asp-for="Price" />
+            <input type="hidden" asp-for="HireCategoryId" />
+            <input type="hidden" asp-for="HireSubCategoryId" />
+            <input type="hidden" asp-for="IsActive" />
+            <div asp-validation-summary="All"></div>
+            
+            <div class="div-box">
+                <input type="submit" value="Видалити" />
+            </div>
+        </form>
+    </div>
+</div>
