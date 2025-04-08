@@ -12,7 +12,7 @@ namespace SUPClub.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var categories = await _categoryService.CategoriesListAsync();
+            var categories = await _categoryService.GetActiveCategoriesAsync();
             return await Task.FromResult((IViewComponentResult)View("Default", categories));
         }
     }

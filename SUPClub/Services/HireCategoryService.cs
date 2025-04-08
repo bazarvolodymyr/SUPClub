@@ -52,14 +52,15 @@ namespace SUPClub.Services
             }
             return categoriesInfo;
         }
-        public async Task<List<ListCategories>> CategoriesListAsync()
+        public async Task<List<CategoryView>> CategoriesListAsync()
         {
             var categories = await _hireCategoryRepository.GetListCategories();
             return categories.ToList();
         }
-        public async Task<IEnumerable<ViewHireCategory>> GetActiveViewInfoAsync()
+        public async Task<List<CategoryView>> GetActiveCategoriesAsync()
         {
-            return await _hireCategoryRepository.GetActiveViewInfoAsync();
+            var categoriesView = await _hireCategoryRepository.GetActiveCategoriesAsync();
+            return categoriesView.ToList();
         }
         public async Task<EditHireCategoryVM?> GetEditModelAsync(int id)
         {

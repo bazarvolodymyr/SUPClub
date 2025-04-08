@@ -4,6 +4,7 @@ using SUPClub.Data.Entities;
 using SUPClub.Data.Repositories.Abstract;
 using SUPClub.Models;
 using SUPClub.Models.DTO.HieCategoryDTO;
+using SUPClub.Models.DTO.HireSubCategoryDTO;
 
 namespace SUPClub.Data.Repositories.EntityFramework
 {
@@ -26,21 +27,21 @@ namespace SUPClub.Data.Repositories.EntityFramework
                 .ToListAsync();
             return _mapper.Map<IEnumerable<HireCategory>>(entities);
         }
-        public async Task<IEnumerable<ListCategories>> GetListCategories()
+        public async Task<IEnumerable<CategoryView>> GetListCategories()
         {
-            List<ListCategories> listCategories = new List<ListCategories>();
+            List<CategoryView> listCategories = new List<CategoryView>();
             listCategories = await _context.HireCategories
                 .AsNoTracking()
                 .Where(x => x.IsDeleted == false)
                 .Select(c =>
-                new ListCategories()
+                new CategoryView()
                 {
                     Id = c.Id,
                     Name = c.Name,
                     ImageUrl = c.ImageUrl,
                     subCategory = c.HireSubCategories
                         .Where(d => d.IsDeleted == false)
-                        .Select(s => new SubCategory() { Id = s.Id, Name = s.Name }) 
+                        .Select(s => new SubCategoryView() { Id = s.Id, Name = s.Name }) 
                         .ToList()
                 }).ToListAsync();
             return listCategories;
@@ -61,16 +62,26 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<HireCategory>(entity);
         }
 
-        public async Task<IEnumerable<ViewHireCategory>> GetActiveViewInfoAsync()
+        public async Task<IEnumerable<CategoryView>> GetActiveCategoriesAsync()
         {
-            List<ViewHireCategory> viewHireCategories = new List<ViewHireCategory> ();
-            viewHireCategories = await _context.HireCategories
+            List<CategoryView> listCategories = new List<CategoryView> ();
+            listCategories = await _context.HireCategories
                 .AsNoTracking()
                 .Where(x => x.IsDeleted == false)
                 .Where(x => x.IsActive == true)
-                .Select(x => new ViewHireCategory { Id = x.Id, Name = x.Name, imageUrl = x.ImageUrl})
-                .ToListAsync();
-            return viewHireCategories;
+                .Select(c =>
+                new CategoryView()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    ImageUrl = c.ImageUrl,
+                    subCategory = c.HireSubCategories
+                        .Where(d => d.IsDeleted == false)
+                        .Where(a => a.IsActive == true)
+                        .Select(s => new SubCategoryView() { Id = s.Id, Name = s.Name })
+                        .ToList()
+                }).ToListAsync();
+            return listCategories;
         }
         public async Task SaveAsync(HireCategory hireCategory)
         {

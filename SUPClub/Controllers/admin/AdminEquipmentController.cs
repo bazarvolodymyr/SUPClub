@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SUPClub.Data.Entities;
 using SUPClub.Models.DTO.EquipmentDTO;
 using SUPClub.Models.DTO.HieCategoryDTO;
+using SUPClub.Models.DTO.HireSubCategoryDTO;
 using SUPClub.Services.Abstract;
 
 namespace SUPClub.Controllers.admin
@@ -31,7 +32,7 @@ namespace SUPClub.Controllers.admin
         {
             var categories = await _hireCategoryService.CategoriesListAsync();
             var subCategories = categories.FirstOrDefault(c => c.Id == categoryId)?.subCategory;
-            return Json(subCategories ?? new List<SubCategory>());
+            return Json(subCategories ?? new List<SubCategoryView>());
         }
         [HttpGet]
         public async Task<IActionResult> EditEquipment(int id)

@@ -9,6 +9,8 @@ namespace SUPClub.Services.Abstract
     {
         Task<IEnumerable<EquipmentInfoVM>> GetAllInfoAsync();
         Task<EditEquipmentVM?> GetEditModelAsync(int id);
+        Task<List<EquipmentView>> GetViewBySubCategoryIdAsync(int subCategoryId);
+        Task<EquipmentView?> GetViewByIdAsync(int id);
         Task<string?> SaveAsync(EditEquipmentVM editEquipment, string? userId, IFormFile? titleImageFile);
         Task<string?> DeleteAsync(int id);
     }

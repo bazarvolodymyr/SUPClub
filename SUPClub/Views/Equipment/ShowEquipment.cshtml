@@ -1,0 +1,20 @@
+﻿@model EquipmentView
+@{
+	string strTitle = "Спорядження";
+	ViewBag.Title = strTitle;
+}
+<div class="col-12">
+	<section class="box article-list">
+		<article class="box excerpt">
+			<div class="image left"><img width="200" height="200" src="~/img/@Model.Photo" alt="" /></div>
+			<div>
+				<header>
+					<h3>@Model.Name</h3>
+					<span class="date">Ціна: @Model.Price</span>
+				</header>
+				<p>@Model.DescriptionShort</p>
+			</div>
+		</article>
+		<p>@Model.Description</p>
+	</section>
+</div>

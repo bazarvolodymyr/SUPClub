@@ -26,7 +26,7 @@
                 <label asp-for="HireCategoryId"></label>
                 <select asp-for="HireCategoryId">
                     <option value="">Виберіть категорію...</option>
-                    @foreach (ViewHireCategory category in ViewBag.ViewCategories)
+                    @foreach (CategoryView category in ViewBag.ViewCategories)
                     {
                         <option value="@category.Id">@category.Name</option>
                     }

@@ -73,7 +73,12 @@ namespace SUPClub.Services
                 IsActive = sudCategory.IsActive
             };
         }
-
+       
+        public async Task<IEnumerable<SubCategoryView>> GetActiveViewByCategoryIdAsync(int categoryId)
+        {
+            return await _hireSubCategoryRepository.GetActiveViewByCategoryIdAsync(categoryId);
+        }
+       
         public async Task<string?> SaveAsync(EditHireSubCategoryVM editModel, string? userId)
         {
             HireSubCategory? subCategory;
@@ -94,6 +99,7 @@ namespace SUPClub.Services
             await _hireSubCategoryRepository.SaveAsync(subCategory);
             return null;
         }
+       
         public async Task<string?> DeleteAsync(int id)
         {
             var subCategory = await _hireSubCategoryRepository.GetByIdAsync(id);

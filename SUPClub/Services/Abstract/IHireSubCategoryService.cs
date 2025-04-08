@@ -7,6 +7,7 @@ namespace SUPClub.Services.Abstract
     {
         Task<IEnumerable<HireSubCategoryInfoVM>> GetAllInfoAsync();
         Task<EditHireSubCategoryVM?> GetEditModelAsync(int id);
+        Task<IEnumerable<SubCategoryView>> GetActiveViewByCategoryIdAsync(int categoryId);
         Task<string?> SaveAsync(EditHireSubCategoryVM editHireCategoryVM,string? userId);
         Task<string?> DeleteAsync(int id);
     }

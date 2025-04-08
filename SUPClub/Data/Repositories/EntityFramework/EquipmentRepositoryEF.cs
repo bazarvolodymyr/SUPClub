@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SUPClub.Data.Entities;
 using SUPClub.Data.Repositories.Abstract;
 using SUPClub.Models;
+using SUPClub.Models.DTO.EquipmentDTO;
 
 namespace SUPClub.Data.Repositories.EntityFramework
 {
@@ -33,14 +34,26 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<Equipment>(entities);
         }
 
-        public async Task<IEnumerable<Equipment>> GetBySubCategoryIdAsync(int subCategoryId)
+        public async Task<IEnumerable<EquipmentView>> GetViewBySubCategoryIdAsync(int subCategoryId)
         {
-            var entities = await _context.Equipments
+            var listEquipments = new List<EquipmentView>();
+            listEquipments = await _context.Equipments
                   .AsNoTracking()
                   .Where(x => x.IsDeleted == false)
-                  .Where(s => s.HireSubCategoryId ==  subCategoryId)
+                  .Where(x => x.IsActive == true)
+                  .Where(x => x.HireSubCategoryId == subCategoryId)
+                  .Select(x => new EquipmentView()
+                  {
+                      Id = x.Id,
+                      Name = x.Name,
+                      DescriptionShort = x.DescriptionShort,
+                      Description = x.Description,
+                      Photo = x.Photo,
+                      Quantity = x.Quantity,
+                      Price = x.Price
+                  })
                   .ToListAsync();
-            return _mapper.Map<IEnumerable<Equipment>>(entities);
+            return listEquipments;
         }
 
         public async Task SaveAsync(Equipment equipment)
@@ -65,6 +78,27 @@ namespace SUPClub.Data.Repositories.EntityFramework
                 entity.IsDeleted = true;
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<EquipmentView?> GetViewByIdAsync(int id)
+        {
+            var equipment = await _context.Equipments
+                  .AsNoTracking()
+                  .Where(x => x.Id == id)
+                  .Where(x => x.IsDeleted == false)
+                  .Where(x => x.IsActive == true)
+                  .Select(x => new EquipmentView()
+                  {
+                      Id = x.Id,
+                      Name = x.Name,
+                      DescriptionShort = x.DescriptionShort,
+                      Description = x.Description,
+                      Photo = x.Photo,
+                      Quantity = x.Quantity,
+                      Price = x.Price
+                  })
+                  .FirstOrDefaultAsync();
+            return equipment;
         }
     }
 }

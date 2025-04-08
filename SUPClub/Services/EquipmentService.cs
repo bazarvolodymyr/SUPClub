@@ -94,7 +94,11 @@ namespace SUPClub.Services
                 IsActive = equipment.IsActive
             };
         }
-
+        public async Task<List<EquipmentView>> GetViewBySubCategoryIdAsync(int subCategoryId)
+        {
+            var equipmentsView = await _equipmentRepository.GetViewBySubCategoryIdAsync(subCategoryId);
+            return equipmentsView.ToList();
+        }
         public async Task<string?> SaveAsync(EditEquipmentVM editEquipment, 
                                         string? userId, IFormFile? titleImageFile)
         {
@@ -144,6 +148,11 @@ namespace SUPClub.Services
             }
             await _equipmentRepository.DeleteAsync(id);
             return null;
+        }
+
+        public async Task<EquipmentView?> GetViewByIdAsync(int id)
+        {
+            return await _equipmentRepository.GetViewByIdAsync(id);
         }
     }
 }

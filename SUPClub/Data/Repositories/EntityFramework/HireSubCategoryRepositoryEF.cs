@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SUPClub.Data.Entities;
 using SUPClub.Data.Repositories.Abstract;
 using SUPClub.Models;
+using SUPClub.Models.DTO.HireSubCategoryDTO;
 
 namespace SUPClub.Data.Repositories.EntityFramework
 {
@@ -35,15 +36,21 @@ namespace SUPClub.Data.Repositories.EntityFramework
             return _mapper.Map<HireSubCategory>(entity);
         }
 
-        public async Task<IEnumerable<HireSubCategory>> GetByCategoryIdAsync(int categoryId)
+        public async Task<IEnumerable<SubCategoryView>> GetActiveViewByCategoryIdAsync(int categoryId)
         {
-            var entities = await _context.HireSubCategories
+            List<SubCategoryView> listSubCategories = new List<SubCategoryView>();
+            listSubCategories = await _context.HireSubCategories
                 .AsNoTracking()
                 .Where(x => x.IsDeleted == false)
+                .Where(x => x.IsActive == true)
                 .Where(c => c.HireCategoryId == categoryId)
-                .Include(x => x.Equipments.Where(d => d.IsDeleted == false))
+                .Select(x => new SubCategoryView()
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                })
                 .ToListAsync();
-            return _mapper.Map<IEnumerable<HireSubCategory>>(entities);
+            return listSubCategories;
         }
         public async Task SaveAsync(HireSubCategory hireCategory)
         {

@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EquipmentView>
+@{
+	string strTitle = "Спорядження";
+	ViewBag.Title = strTitle;
+}
+<div class="col-12">
+	<section class="box article-list">
+		<h2 class="icon fa-file-alt">@ViewBag.SubCategory</h2>
+		@foreach (EquipmentView equipment in Model)
+		{
+			<article class="box excerpt">
+				<a asp-controller="Equipment" asp-action="ShowEquipment" asp-route-id="@equipment.Id">
+					<div class="image left"><img width="200" height="200" src="~/img/@equipment.Photo" alt="" /></div>
+					<div>
+						<header>
+							<h3>@equipment.Name</h3>
+							<span class="date">Ціна: @equipment.Price</span>
+						</header>
+						<p>@equipment.DescriptionShort</p>
+					</div>
+				</a>
+            </article>
+		}
+	</section>
+</div>

@@ -29,7 +29,7 @@ namespace SUPClub.Controllers.admin
         [HttpGet]
         public async Task<IActionResult> EditSubCategory([FromRoute] int id)
         {
-            ViewBag.ViewCategories = await _hireCategoryService.GetActiveViewInfoAsync();
+            ViewBag.ViewCategories = await _hireCategoryService.CategoriesListAsync();
             if (id == default)
             {
                 return View(new EditHireSubCategoryVM());
@@ -46,7 +46,7 @@ namespace SUPClub.Controllers.admin
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.ViewCategories = await _hireCategoryService.GetActiveViewInfoAsync();
+                ViewBag.ViewCategories = await _hireCategoryService.CategoriesListAsync();
                 return View(model);
             }
             var appUser = await _userManager.GetUserAsync(User);

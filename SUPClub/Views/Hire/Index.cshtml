@@ -1,0 +1,34 @@
+﻿@model IEnumerable<CategoryView>
+@{
+	string strTitle = "Категорії";
+	ViewBag.Title = strTitle;
+}
+<div class="col-12">
+	<section class="container box feature1">
+		<header class="first major">
+			<h2>@strTitle</h2>
+		</header>
+	</section>
+</div>
+@foreach(CategoryView category in Model)
+{
+	<div class="col-4 col-12-medium">
+		<section>
+			<a asp-controller="Hire" asp-action="ShowCategory" asp-route-id="@category.Id" class="image featured">
+				<h3>@category.Name</h3>
+				<img src="~/img/@category.ImageUrl" alt="" />
+				</a>
+			<header class="second icon solid">
+				@foreach(SubCategoryView subCategory in category.subCategory)
+				{
+					<p>
+						<a asp-controller="Hire" asp-action="ShowSubCategory" asr-route-id="@subCategory.Id">
+							@subCategory.Name
+						</a>
+					</p>
+                }
+			</header>
+		</section>
+    </div>
+}
+

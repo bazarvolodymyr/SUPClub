@@ -1,0 +1,28 @@
+﻿@model CategoryView
+@{
+	string strTitle = "Категорія";
+	ViewBag.Title = strTitle;
+}
+<div class="col-12">
+	<section class="container box feature1">
+		<header class="first major">
+			<h2>@strTitle</h2>
+		</header>
+	</section>
+</div>
+<div class="col-4 col-12-medium">
+	<section>
+			<h3>@Model.Name</h3>
+		<img class="image featured" src="~/img/@Model.ImageUrl" alt="" />
+		<header class="second icon solid">
+			@foreach (SubCategoryView subCategory in Model.subCategory)
+			{
+				<p>
+					<a asp-controller="Hire" asp-action="ShowSubCategory" asp-route-id="@subCategory.Id">
+						@subCategory.Name
+					</a>
+				</p>
+			}
+		</header>
+	</section>
+</div>

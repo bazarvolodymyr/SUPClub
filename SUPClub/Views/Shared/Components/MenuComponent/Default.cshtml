@@ -1,16 +1,16 @@
-﻿@model IEnumerable<ListCategories>
+﻿@model IEnumerable<CategoryView>
 <nav id="nav">
     <ul>
         <li>
-            <a asp-area="" asp-controller="Home" asp-action="Index">Головна</a>
+            <a asp-controller="Home" asp-action="Index">Головна</a>
         </li>
         <li>
-            <a asp-area="" asp-controller="Services" asp-action="Index">Прокат</a>
+            <a asp-controller="Hire" asp-action="Index">Прокат</a>
             <ul>
-                @foreach(ListCategories category in Model)
+                @foreach(CategoryView category in Model)
                 {
                     <li>
-                        <a asp-controller="Services" asp-action="Show" asp-route-id="@category.Id">
+                        <a asp-controller="Hire" asp-action="ShowCategory" asp-route-id="@category.Id">
                             @if (category.ImageUrl != null)
                             {
                                 <img class="img-block" width="50" height="50" src="~/img/@category.ImageUrl" />
@@ -20,10 +20,10 @@
                         @if(category.subCategory.Any())
                         {
                             <ul>
-                                @foreach (SubCategory subCategory in category.subCategory)
+                                @foreach (SubCategoryView subCategory in category.subCategory)
                                 {
                                     <li>
-                                        <a asp-controller="Services" asp-action="Show" asp-route-id="@subCategory.Id">
+                                        <a asp-controller="Hire" asp-action="ShowSubCategory" asp-route-id="@subCategory.Id">
                                             @subCategory.Name
                                         </a>
                                     </li>
@@ -35,22 +35,22 @@
             </ul>
         </li>
         <li>
-            <a asp-area="" asp-controller="Home" asp-action="Contacts">Контакти</a>
+            <a asp-controller="Home" asp-action="Contacts">Контакти</a>
         </li>
         <li>
-            <a asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+            <a asp-controller="Admin" asp-action="Index">Admin</a>
         </li>
         <li>
             @if (User.Identity!.IsAuthenticated)
             {
-                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                <form asp-controller="Account" asp-action="Logout" method="post">
                     <input type="submit" value="Вихід" />
                 </form>
             }
             else
             {
-                <a asp-area="" asp-controller="Account" asp-action="Login">Вхід</a>
-                <a asp-area="" asp-controller="Account" asp-action="Register">Регістрація</a>
+                <a asp-controller="Account" asp-action="Login">Вхід</a>
+                <a asp-controller="Account" asp-action="Register">Регістрація</a>
             }
         </li>
     </ul>
