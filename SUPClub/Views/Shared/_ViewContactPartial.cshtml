@@ -1,0 +1,44 @@
+﻿@model Contact
+
+    
+@switch(Model.Type)
+{
+    case ContactType.Info:
+        <p>
+            @if (Model.IconUrl != null)
+            {
+                <img class="img-block" width="30" height="30" src="~/img/@Model.IconUrl" />
+            }
+            @Model.Text
+        </p>
+        break;
+    case ContactType.Tel:
+        <p>
+        @if(Model.IconUrl != null)
+            {
+                <img class="img-block" width="30" height="30" src="~/img/@Model.IconUrl" />
+            }
+            Телефон: <a href="tel:@Model.Source">@Model.Text</a>
+        </p> 
+        break;
+    case ContactType.Email:
+        <p>
+            @if (Model.IconUrl != null)
+            {
+            <img class="img-block" width="30" height="30" src="~/img/@Model.IconUrl" />
+            }
+            Email: <a href="mailto:@Model.Source">@Model.Text</a>
+        </p>
+        break;
+    case ContactType.Link:
+        <p>
+            <a href="@Model.Source" target="_blank" rel="noopener noreferrer">
+                @if(Model.IconUrl != null)
+                {
+                    <img class="img-block" width="30" height="30" src="~/img/@Model.IconUrl" />
+                }
+                @Model.Text
+            </a>
+        </p>
+        break;
+}

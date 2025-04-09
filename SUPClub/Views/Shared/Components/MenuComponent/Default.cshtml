@@ -39,6 +39,20 @@
         </li>
         <li>
             <a asp-controller="Admin" asp-action="Index">Admin</a>
+            <ul>
+                <li>
+                    <a asp-controller="AdminHireCategory" asp-action="Index">Категорії</a>
+                </li>
+                <li>
+                    <a asp-controller="AdminHireSubCategory" asp-action="Index">Підкатегорії</a>
+                </li>
+                <li>
+                    <a asp-controller="AdminEquipment" asp-action="Index">Спорядження</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="ShowContacts">Контакти</a>
+                </li>
+            </ul>
         </li>
         <li>
             @if (User.Identity!.IsAuthenticated)

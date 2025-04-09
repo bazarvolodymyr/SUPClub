@@ -1,0 +1,45 @@
+﻿@model Contact
+@{
+    string? strTitle = "Контакти";
+    ViewBag.Title = strTitle;
+}
+<div class="col-12 col-12-medium imp-medium">
+    <h1>@strTitle</h1>
+    <div class="div-box">
+        <form asp-controller="Admin" asp-action="EditContact" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="IconUrl" />
+            <div asp-validation-summary="All"></div>
+            <div>
+                <label asp-for="IconUrl"></label>
+                <input type="file" name="titleImageFile" id="titleImageFile" />
+                <div>
+                    <img class="img-block" width="30" height="30" src="~/img/@Model.IconUrl" />
+                </div>
+            </div>
+            <div>
+                <label asp-for="Text"></label>
+                <input asp-for="Text" />
+                <span asp-validation-for="Text"></span>
+            </div>
+            <div>
+                <label asp-for="Source"></label>
+                <input asp-for="Source" />
+                <span asp-validation-for="Source"></span>
+            </div>
+            <div>
+                <label asp-for="Type"></label>
+                <select asp-for="Type" asp-items="Html.GetEnumSelectList<ContactType>()"></select>
+                <span asp-validation-for="Source"></span>
+            </div>
+            <div>
+                <label asp-for="Rank"></label>
+                <input asp-for="Rank" />
+                <span asp-validation-for="Rank"></span>
+            </div>
+            <div>
+                <input type="submit" value="Зберегти" />
+            </div>
+        </form>
+    </div>
+</div>

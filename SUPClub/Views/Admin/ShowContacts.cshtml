@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Contact>
+@{
+    string? strTitle = "Контакти";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <h1>@strTitle</h1>
+    <div class="div-box">
+        <a asp-controller="Admin" asp-action="EditContact" asp-route-id="" class="button">
+            Додати контакт
+        </a>
+    </div>
+    @if (Model.Any())
+    {
+        <div class="div-box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Контакт</th>
+                        <th>Редагувати</th>
+                        <th>Видалити</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var contact in Model)
+                    {
+                        <tr>
+                            <td><partial name="_ViewContactPartial" model="@contact" /></td>
+                            <td>
+                                <a asp-controller="Admin" asp-action="EditContact" asp-route-id="@contact.Id" class="button">Оновити</a>
+                            </td>
+                            <td>
+                                <form asp-controller="Admin" asp-action="DeleteCategory" asp-route-id="@contact.Id" method="post">
+                                    <input type="submit" value="Видалити" />
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

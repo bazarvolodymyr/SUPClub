@@ -40,10 +40,12 @@ builder.Services.AddScoped<ImageHandler>();
 builder.Services.AddScoped<IHireCategoryRepository, HireCategoryRepositoryEF>();
 builder.Services.AddScoped<IHireSubCategoryRepository, HireSubCategoryRepositoryEF>();
 builder.Services.AddScoped<IEquipmentRepository, EquipmentRepositoryEF>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
 
 builder.Services.AddScoped<IHireCategoryService, HireCategoryService>();
 builder.Services.AddScoped<IHireSubCategoryService, HireSubCategoryService>();
 builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

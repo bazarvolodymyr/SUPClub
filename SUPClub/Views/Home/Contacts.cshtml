@@ -1,5 +1,16 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Contact>
 @{
+	string strTitle = "Контакти";
+	ViewBag.Title = strTitle;
 }
+<div class="col-4 col-12-medium">
+	<div id="content">
+		<header class="first major">
+			<h2>@strTitle</h2>
+		</header>
+		@foreach (Contact contact in Model)
+		{
+			<partial name="_ViewContactPartial" model="@contact" />
+		}
+    </div>
+</div>

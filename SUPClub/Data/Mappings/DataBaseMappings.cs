@@ -11,6 +11,7 @@ namespace SUPClub.Data.Mappings
             CreateMap<HireCategoryEntity, HireCategory>().ReverseMap();
             CreateMap<HireSubCategoryEntity, HireSubCategory>().ReverseMap();
             CreateMap<EquipmentEntity, Equipment>().ReverseMap();
+            CreateMap<ContactEntity, Contact>().ReverseMap();
         }
     }
 }

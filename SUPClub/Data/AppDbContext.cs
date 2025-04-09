@@ -15,12 +15,14 @@ namespace SUPClub.Data
         public DbSet<HireCategoryEntity> HireCategories { get; set; }
         public DbSet<HireSubCategoryEntity> HireSubCategories { get; set; }
         public DbSet<EquipmentEntity> Equipments { get; set; } 
+        public DbSet<ContactEntity> Contacts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new HireCategoryConfigurations());
             builder.ApplyConfiguration(new HireSubCategoryConfigurations());
             builder.ApplyConfiguration(new EquipmentConfigurations());
+            builder.ApplyConfiguration(new ContactConfigurations());
 
             string adminName = "admin";
             string roleAdminId = "407BF8AF-8CE1-45E1-9F2A-2270E884ED28";
