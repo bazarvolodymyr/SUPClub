@@ -11,5 +11,6 @@
         public int? HireCategoryId { get; set; }
         public HireSubCategoryEntity? HireSubCategory { get; set; }
         public HireCategoryEntity? HireCategory { get; set; }
+        public List<ReservationEntity>? Reservations { get; set; }
     }
 }
